@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReplyAI — Gestão Inteligente de Avaliações Google</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy: #0B1D33;
+  --navy-light: #122A4A;
+  --navy-mid: #1A3A5C;
+  --gold: #E8A838;
+  --gold-light: #F5C96A;
+  --gold-dark: #C78B20;
+  --cream: #FDF8F0;
+  --cream-dark: #F5EDE0;
+  --white: #FFFFFF;
+  --gray-100: #F7F7F8;
+  --gray-200: #E8E8EC;
+  --gray-400: #9B9BA8;
+  --gray-600: #5A5A6E;
+  --gray-800: #2A2A3C;
+  --green: #1DB954;
+  --green-dark: #168F40;
+  --red-soft: #FF6B6B;
+  --star: #FBBF24;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--gray-800);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =================== HERO =================== */
+.hero {
+  background: var(--navy);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(232,168,56,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(232,168,56,0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 5%;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.logo span { color: var(--gold); }
+
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--gold) !important;
+  color: var(--navy) !important;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600 !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(232,168,56,0.3);
+}
+
+/* HERO CONTENT */
+.hero-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 60px;
+  position: relative;
+  z-index: 5;
+}
+
+.hero-text { flex: 1; max-width: 600px; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(232,168,56,0.12);
+  border: 1px solid rgba(232,168,56,0.25);
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+  animation: fadeInUp 0.8s ease;
+}
+.hero-badge span {
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.12;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease 0.1s both;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 500px;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--green);
+  color: var(--white);
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(29,185,84,0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--white);
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s;
+}
+.btn-secondary:hover {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+/* HERO VISUAL */
+.hero-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.review-card-stack {
+  position: relative;
+  width: 400px;
+  height: 440px;
+}
+
+.review-card {
+  position: absolute;
+  background: var(--white);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  width: 340px;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.review-card:nth-child(1) {
+  top: 0; left: 30px; z-index: 3;
+  transform: rotate(-2deg);
+  animation: floatCard1 6s ease-in-out infinite;
+}
+.review-card:nth-child(2) {
+  top: 140px; left: 50px; z-index: 2;
+  transform: rotate(1.5deg);
+  animation: floatCard2 6s ease-in-out infinite;
+}
+.review-card:nth-child(3) {
+  top: 280px; left: 10px; z-index: 1;
+  transform: rotate(-1deg);
+  animation: floatCard3 6s ease-in-out infinite;
+}
+
+.rc-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.rc-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px; color: var(--white);
+}
+.rc-name { font-weight: 600; font-size: 14px; color: var(--gray-800); }
+.rc-date { font-size: 12px; color: var(--gray-400); }
+.rc-stars { margin-bottom: 8px; font-size: 16px; letter-spacing: 2px; }
+.rc-text { font-size: 13px; color: var(--gray-600); line-height: 1.5; margin-bottom: 14px; }
+
+.rc-reply {
+  background: var(--gray-100);
+  border-radius: 10px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--gold);
+}
+.rc-reply-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gold-dark);
+  margin-bottom: 6px;
+}
+.rc-reply-text { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+
+.rc-ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(232,168,56,0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gold-dark);
+  margin-top: 8px;
+}
+
+/* SOCIAL PROOF BAR */
+.social-proof-bar {
+  padding: 24px 5%;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  z-index: 5;
+}
+.social-proof-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.proof-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.proof-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gold);
+}
+.proof-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.4;
+}
+
+/* =================== PROBLEMA =================== */
+.problema {
+  padding: 100px 5%;
+  background: var(--cream);
+  position: relative;
+}
+
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.section-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold-dark);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.section-sub {
+  font-size: 17px;
+  color: var(--gray-600);
+  line-height: 1.7;
+  max-width: 650px;
+  margin-bottom: 48px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 28px;
+  border: 1px solid var(--gray-200);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.stat-number span { color: var(--gold); }
+.stat-text { font-size: 15px; color: var(--gray-600); line-height: 1.5; }
+.stat-source { font-size: 11px; color: var(--gray-400); margin-top: 10px; }
+
+/* =================== ANTES/DEPOIS =================== */
+.antes-depois {
+  padding: 100px 5%;
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+
+.antes-depois::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(232,168,56,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ad-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-top: 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.ad-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 40px;
+}
+.ad-arrow {
+  width: 56px;
+  height: 56px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--navy);
+  font-weight: 700;
+  box-shadow: 0 8px 30px rgba(232,168,56,0.3);
+}
+.ad-divider span {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+  writing-mode: vertical-rl;
+}
+
+.ad-card {
+  border-radius: 20px;
+  padding: 36px;
+}
+.ad-antes {
+  background: rgba(255,107,107,0.08);
+  border: 1px solid rgba(255,107,107,0.2);
+}
+.ad-depois {
+  background: rgba(29,185,84,0.08);
+  border: 1px solid rgba(29,185,84,0.2);
+}
+
+.ad-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 24px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  display: inline-block;
+}
+.ad-antes .ad-label { background: rgba(255,107,107,0.15); color: var(--red-soft); }
+.ad-depois .ad-label { background: rgba(29,185,84,0.15); color: var(--green); }
+
+.ad-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.ad-icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0; margin-top: 2px;
+}
+.ad-antes .ad-icon { background: rgba(255,107,107,0.15); color: var(--red-soft); }
+.ad-depois .ad-icon { background: rgba(29,185,84,0.15); color: var(--green); }
+.ad-item-text { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+
+/* =================== COMO FUNCIONA =================== */
+.como-funciona {
+  padding: 100px 5%;
+  background: var(--cream);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.step-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 36px 28px;
+  border: 1px solid var(--gray-200);
+  position: relative;
+  transition: transform 0.3s;
+}
+.step-card:hover { transform: translateY(-4px); }
+
+.step-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--cream-dark);
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  line-height: 1;
+}
+
+.step-icon {
+  width: 52px; height: 52px;
+  background: var(--navy);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.step-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.step-desc { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+
+/* =================== PRECOS =================== */
+.precos {
+  padding: 100px 5%;
+  background: var(--white);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+  align-items: start;
+}
+
+.price-card {
+  border-radius: 20px;
+  padding: 36px;
+  border: 1px solid var(--gray-200);
+  position: relative;
+  background: var(--white);
+  transition: transform 0.3s;
+}
+.price-card:hover { transform: translateY(-4px); }
+
+.price-card.featured {
+  background: var(--navy);
+  border: 2px solid var(--gold);
+  transform: scale(1.04);
+  box-shadow: 0 20px 60px rgba(11,29,51,0.2);
+}
+.price-card.featured:hover { transform: scale(1.04) translateY(-4px); }
+
+.price-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.price-name {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.price-card:not(.featured) .price-name { color: var(--gray-400); }
+.price-card.featured .price-name { color: var(--gold); }
+
+.price-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 44px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.price-card:not(.featured) .price-value { color: var(--navy); }
+.price-card.featured .price-value { color: var(--white); }
+.price-value span { font-size: 18px; font-weight: 500; }
+
+.price-period {
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+.price-card:not(.featured) .price-period { color: var(--gray-400); }
+.price-card.featured .price-period { color: rgba(255,255,255,0.5); }
+
+.price-features { list-style: none; margin-bottom: 28px; }
+.price-features li {
+  font-size: 14px;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.price-card:not(.featured) .price-features li { color: var(--gray-600); border-bottom: 1px solid var(--gray-100); }
+.price-card.featured .price-features li { color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+.price-features li::before {
+  content: '✓';
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.price-card:not(.featured) .price-features li::before { color: var(--green); }
+.price-card.featured .price-features li::before { color: var(--gold); }
+
+.price-features li.disabled { opacity: 0.35; }
+.price-features li.disabled::before { content: '—'; }
+
+.price-btn {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.price-card:not(.featured) .price-btn {
+  background: var(--gray-100);
+  color: var(--navy);
+}
+.price-card:not(.featured) .price-btn:hover { background: var(--gray-200); }
+.price-card.featured .price-btn {
+  background: var(--gold);
+  color: var(--navy);
+}
+.price-card.featured .price-btn:hover {
+  box-shadow: 0 8px 30px rgba(232,168,56,0.3);
+  transform: translateY(-1px);
+}
+
+/* =================== DEPOIMENTOS =================== */
+.depoimentos {
+  padding: 100px 5%;
+  background: var(--cream);
+}
+
+.dep-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.dep-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid var(--gray-200);
+}
+
+.dep-stars { font-size: 18px; margin-bottom: 16px; letter-spacing: 2px; }
+.dep-quote {
+  font-size: 15px;
+  color: var(--gray-600);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.dep-author { display: flex; align-items: center; gap: 12px; }
+.dep-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px; color: var(--white);
+}
+.dep-name { font-weight: 600; font-size: 14px; color: var(--navy); }
+.dep-biz { font-size: 12px; color: var(--gray-400); }
+
+.dep-result {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dep-result-badge {
+  background: rgba(29,185,84,0.1);
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.dep-result-text { font-size: 12px; color: var(--gray-400); }
+
+/* =================== FAQ =================== */
+.faq {
+  padding: 100px 5%;
+  background: var(--white);
+}
+
+.faq-list {
+  max-width: 720px;
+  margin: 48px auto 0;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 24px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'DM Sans', sans-serif;
+}
+.faq-q::after {
+  content: '+';
+  font-size: 24px;
+  color: var(--gold);
+  font-weight: 300;
+  transition: transform 0.3s;
+}
+.faq-q.active::after { transform: rotate(45deg); }
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s;
+}
+.faq-a.open { max-height: 300px; }
+.faq-a-inner {
+  padding-bottom: 24px;
+  font-size: 15px;
+  color: var(--gray-600);
+  line-height: 1.7;
+}
+
+/* =================== CTA FINAL =================== */
+.cta-final {
+  padding: 100px 5%;
+  background: var(--navy);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-final::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(232,168,56,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-inner { position: relative; z-index: 2; }
+
+.cta-final h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.cta-final h2 em { color: var(--gold); font-style: italic; }
+
+.cta-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+.cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--green);
+  color: var(--white);
+  padding: 18px 40px;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+.cta-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(29,185,84,0.3);
+}
+
+.cta-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.cta-guarantee span {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* =================== FOOTER =================== */
+.footer {
+  padding: 40px 5%;
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+}
+.footer-logo span { color: var(--gold); }
+.footer-text { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+/* =================== ANIMATIONS =================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatCard1 {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50% { transform: rotate(-2deg) translateY(-8px); }
+}
+@keyframes floatCard2 {
+  0%, 100% { transform: rotate(1.5deg) translateY(0); }
+  50% { transform: rotate(1.5deg) translateY(-6px); }
+}
+@keyframes floatCard3 {
+  0%, 100% { transform: rotate(-1deg) translateY(0); }
+  50% { transform: rotate(-1deg) translateY(-10px); }
+}
+
+/* =================== RESPONSIVE =================== */
+@media (max-width: 960px) {
+  .hero-content { flex-direction: column; padding-top: 40px; text-align: center; }
+  .hero-text { max-width: 100%; }
+  .hero-sub { margin: 0 auto 36px; }
+  .hero-buttons { justify-content: center; }
+  .hero-visual { display: none; }
+  .nav-links { display: none; }
+  .ad-grid { grid-template-columns: 1fr; }
+  .ad-divider { flex-direction: row; padding: 0; }
+  .ad-divider span { writing-mode: horizontal-tb; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .price-card.featured { transform: none; }
+  .price-card.featured:hover { transform: translateY(-4px); }
+  .dep-grid { grid-template-columns: 1fr; }
+  .social-proof-inner { gap: 24px; }
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- =================== HERO =================== -->
+<section class="hero">
+  <nav class="nav">
+    <a href="#" class="logo">Reply<span>AI</span></a>
+    <div class="nav-links">
+      <a href="#problema">O Problema</a>
+      <a href="#como">Como Funciona</a>
+      <a href="#precos">Preços</a>
+      <a href="#faq">FAQ</a>
+      <a href="#cta" class="nav-cta">Teste Grátis</a>
+    </div>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span>⚡ Powered by AI</span>
+      </div>
+      <h1>Suas avaliações Google<br>respondidas com <em>inteligência</em></h1>
+      <p class="hero-sub">Respondemos 100% das suas reviews no Google — no tom da sua marca, em até 24h, com inteligência artificial e revisão humana. Você cuida do negócio, a gente cuida da sua reputação.</p>
+      <div class="hero-buttons">
+        <a href="#cta" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          Teste grátis pelo WhatsApp
+        </a>
+        <a href="#como" class="btn-secondary">Como funciona →</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="review-card-stack">
+        <!-- Card 1: 5 star -->
+        <div class="review-card">
+          <div class="rc-header">
+            <div class="rc-avatar" style="background:#4A90D9;">M</div>
+            <div>
+              <div class="rc-name">Marina Silva</div>
+              <div class="rc-date">há 2 horas</div>
+            </div>
+          </div>
+          <div class="rc-stars" style="color:var(--star);">★★★★★</div>
+          <div class="rc-text">Melhor pizza da cidade! A massa é incrível, leve e crocante. Atendimento do João nota 10.</div>
+          <div class="rc-reply">
+            <div class="rc-reply-label">↩ Resposta do proprietário</div>
+            <div class="rc-reply-text">Marina, que alegria ler isso! O João vai adorar saber — ele é apaixonado pelo que faz. Volta pra experimentar a nova de trufas! — Marcos</div>
+          </div>
+          <div class="rc-ai-badge">⚡ Respondido em 18 min</div>
+        </div>
+
+        <!-- Card 2: 2 star -->
+        <div class="review-card">
+          <div class="rc-header">
+            <div class="rc-avatar" style="background:#E57373;">R</div>
+            <div>
+              <div class="rc-name">Roberto Alves</div>
+              <div class="rc-date">há 5 horas</div>
+            </div>
+          </div>
+          <div class="rc-stars"><span style="color:var(--star);">★★</span><span style="color:var(--gray-200);">★★★</span></div>
+          <div class="rc-text">Esperei 40 minutos pelo pedido. Comida boa mas demora inaceitável.</div>
+          <div class="rc-reply">
+            <div class="rc-reply-label">↩ Resposta do proprietário</div>
+            <div class="rc-reply-text">Roberto, entendo sua frustração. 40 min não é nosso padrão. Me chama no WhatsApp que quero resolver. — Marcos</div>
+          </div>
+          <div class="rc-ai-badge">⚡ Respondido em 12 min</div>
+        </div>
+
+        <!-- Card 3: 4 star -->
+        <div class="review-card">
+          <div class="rc-header">
+            <div class="rc-avatar" style="background:#81C784;">P</div>
+            <div>
+              <div class="rc-name">Paula Costa</div>
+              <div class="rc-date">há 1 dia</div>
+            </div>
+          </div>
+          <div class="rc-stars"><span style="color:var(--star);">★★★★</span><span style="color:var(--gray-200);">★</span></div>
+          <div class="rc-text">Ambiente agradável e comida boa. Só achei o estacionamento difícil.</div>
+          <div class="rc-reply">
+            <div class="rc-reply-label">↩ Resposta do proprietário</div>
+            <div class="rc-reply-text">Paula, obrigado pelo feedback! Sobre o estacionamento, temos convênio com o parking da esquina. Pede pro garçom o selo na próxima! — Marcos</div>
+          </div>
+          <div class="rc-ai-badge">⚡ Respondido em 24 min</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="social-proof-bar">
+    <div class="social-proof-inner">
+      <div class="proof-item">
+        <div class="proof-number">97%</div>
+        <div class="proof-label">dos consumidores leem<br>reviews antes de comprar</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-number">24h</div>
+        <div class="proof-label">tempo máximo<br>de resposta</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-number">100%</div>
+        <div class="proof-label">de reviews<br>respondidas</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-number">+0.3★</div>
+        <div class="proof-label">melhora média<br>em 3 meses</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PROBLEMA =================== -->
+<section class="problema" id="problema">
+  <div class="section-inner">
+    <div class="section-label">O Problema</div>
+    <h2 class="section-title">Enquanto você trabalha,<br>seus clientes te avaliam</h2>
+    <p class="section-sub">E cada review sem resposta é um cliente potencial que escolhe seu concorrente. Os números não mentem:</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">68<span>%</span></div>
+        <div class="stat-text">dos consumidores só usam negócios com nota <strong>4 estrelas ou mais</strong></div>
+        <div class="stat-source">BrightLocal, 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">94<span>%</span></div>
+        <div class="stat-text">desistem após ver <strong>uma review negativa sem resposta</strong> do dono</div>
+        <div class="stat-source">Bridge Media, 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">19<span>%</span></div>
+        <div class="stat-text">esperam resposta do dono <strong>no mesmo dia</strong> da avaliação</div>
+        <div class="stat-source">BrightLocal, 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">86<span>%</span></div>
+        <div class="stat-text">pagam <strong>mais caro</strong> por um negócio com boas avaliações</div>
+        <div class="stat-source">CardRates, 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== ANTES/DEPOIS =================== -->
+<section class="antes-depois">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold);">Transformação</div>
+    <h2 class="section-title" style="color:var(--white);">O que muda com a ReplyAI</h2>
+
+    <div class="ad-grid">
+      <div class="ad-card ad-antes">
+        <div class="ad-label">Sem ReplyAI</div>
+        <div class="ad-item"><div class="ad-icon">✕</div><div class="ad-item-text">Reviews se acumulam sem resposta há semanas</div></div>
+        <div class="ad-item"><div class="ad-icon">✕</div><div class="ad-item-text">Review negativa fica visível sem posicionamento</div></div>
+        <div class="ad-item"><div class="ad-icon">✕</div><div class="ad-item-text">Nota média cai sem você perceber</div></div>
+        <div class="ad-item"><div class="ad-icon">✕</div><div class="ad-item-text">Cliente potencial escolhe o concorrente</div></div>
+        <div class="ad-item"><div class="ad-icon">✕</div><div class="ad-item-text">Nenhum dado sobre sua reputação online</div></div>
+      </div>
+
+      <div class="ad-divider">
+        <div class="ad-arrow">→</div>
+        <span>ReplyAI</span>
+      </div>
+
+      <div class="ad-card ad-depois">
+        <div class="ad-label">Com ReplyAI</div>
+        <div class="ad-item"><div class="ad-icon">✓</div><div class="ad-item-text">100% das reviews respondidas em até 24h</div></div>
+        <div class="ad-item"><div class="ad-icon">✓</div><div class="ad-item-text">Alerta WhatsApp imediato para reviews negativas</div></div>
+        <div class="ad-item"><div class="ad-icon">✓</div><div class="ad-item-text">Nota média sobe +0.3 estrelas em 3 meses</div></div>
+        <div class="ad-item"><div class="ad-icon">✓</div><div class="ad-item-text">Perfil ativo transmite confiança e profissionalismo</div></div>
+        <div class="ad-item"><div class="ad-icon">✓</div><div class="ad-item-text">Relatório mensal com evolução da reputação</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== COMO FUNCIONA =================== -->
+<section class="como-funciona" id="como">
+  <div class="section-inner">
+    <div class="section-label">Como Funciona</div>
+    <h2 class="section-title">Simples assim: você não precisa fazer nada</h2>
+    <p class="section-sub">A gente configura tudo em 30 minutos. Depois disso, é no piloto automático.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <div class="step-icon">📋</div>
+        <div class="step-title">Onboarding rápido</div>
+        <div class="step-desc">Você nos conta o tom do seu negócio, seus diferenciais e como quer ser representado. Leva 30 minutos pelo WhatsApp. A gente configura todo o sistema.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <div class="step-icon">🤖</div>
+        <div class="step-title">IA + revisão humana</div>
+        <div class="step-desc">Nossa IA monitora suas reviews 24/7 e gera respostas personalizadas no tom da sua marca. Cada resposta passa por revisão humana antes de ser publicada.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <div class="step-icon">📈</div>
+        <div class="step-title">Resultados visíveis</div>
+        <div class="step-desc">Sua nota sobe, seu perfil fica profissional, e você recebe relatório mensal mostrando a evolução. Reviews negativas viram alertas instantâneos no seu WhatsApp.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PRECOS =================== -->
+<section class="precos" id="precos">
+  <div class="section-inner">
+    <div class="section-label">Planos</div>
+    <h2 class="section-title">Invista menos do que custa<br>perder um cliente</h2>
+    <p class="section-sub">Todos os planos incluem configuração, monitoramento e respostas no tom da sua marca.</p>
+
+    <div class="pricing-grid">
+      <!-- Essencial -->
+      <div class="price-card">
+        <div class="price-name">Essencial</div>
+        <div class="price-value">R$197<span>/mês</span></div>
+        <div class="price-period">Para negócios com volume moderado</div>
+        <ul class="price-features">
+          <li>Até 30 reviews/mês</li>
+          <li>Monitoramento diário</li>
+          <li>Tom personalizado da marca</li>
+          <li>Revisão humana amostral</li>
+          <li class="disabled">Alerta WhatsApp</li>
+          <li class="disabled">Relatório mensal</li>
+        </ul>
+        <a href="#cta" class="price-btn">Começar agora</a>
+      </div>
+
+      <!-- Profissional -->
+      <div class="price-card featured">
+        <div class="price-badge">⭐ Mais escolhido</div>
+        <div class="price-name">Profissional</div>
+        <div class="price-value">R$347<span>/mês</span></div>
+        <div class="price-period">Para quem leva reputação a sério</div>
+        <ul class="price-features">
+          <li>Até 60 reviews/mês</li>
+          <li>Monitoramento a cada 6 horas</li>
+          <li>Tom personalizado avançado</li>
+          <li>100% revisão humana</li>
+          <li>Alerta WhatsApp em 2h</li>
+          <li>Relatório mensal completo</li>
+        </ul>
+        <a href="#cta" class="price-btn">Começar agora</a>
+      </div>
+
+      <!-- Premium -->
+      <div class="price-card">
+        <div class="price-name">Premium</div>
+        <div class="price-value">R$597<span>/mês</span></div>
+        <div class="price-period">Para quem quer dominar no Google</div>
+        <ul class="price-features">
+          <li>Reviews ilimitadas</li>
+          <li>Monitoramento em tempo real</li>
+          <li>Tom com variação avançada</li>
+          <li>100% revisão humana prioritária</li>
+          <li>Alerta WhatsApp imediato</li>
+          <li>Relatório semanal + dashboard</li>
+        </ul>
+        <a href="#cta" class="price-btn">Começar agora</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== DEPOIMENTOS =================== -->
+<section class="depoimentos">
+  <div class="section-inner">
+    <div class="section-label">Resultados</div>
+    <h2 class="section-title">Quem usa, recomenda</h2>
+
+    <div class="dep-grid">
+      <div class="dep-card">
+        <div class="dep-stars" style="color:var(--star);">★★★★★</div>
+        <div class="dep-quote">"Eu sabia que as reviews eram importantes mas nunca tinha tempo de responder. Em 2 meses minha nota subiu de 4.1 pra 4.4 e percebi mais clientes novos citando o Google."</div>
+        <div class="dep-author">
+          <div class="dep-avatar" style="background:#4A90D9;">M</div>
+          <div><div class="dep-name">Marcos Oliveira</div><div class="dep-biz">Restaurante Vila Sabor · Campinas</div></div>
+        </div>
+        <div class="dep-result">
+          <div class="dep-result-badge">+0.3★</div>
+          <div class="dep-result-text">em 2 meses</div>
+        </div>
+      </div>
+
+      <div class="dep-card">
+        <div class="dep-stars" style="color:var(--star);">★★★★★</div>
+        <div class="dep-quote">"Tinha uma review de 1 estrela no topo do meu perfil há 6 meses. A ReplyAI respondeu todas e agora as positivas dominam. Melhor investimento do ano."</div>
+        <div class="dep-author">
+          <div class="dep-avatar" style="background:#81C784;">D</div>
+          <div><div class="dep-name">Dra. Fernanda Lima</div><div class="dep-biz">Clínica Odonto Prime · São Paulo</div></div>
+        </div>
+        <div class="dep-result">
+          <div class="dep-result-badge">100% respondidas</div>
+          <div class="dep-result-text">de 47 reviews em 3 meses</div>
+        </div>
+      </div>
+
+      <div class="dep-card">
+        <div class="dep-stars" style="color:var(--star);">★★★★★</div>
+        <div class="dep-quote">"O alerta no WhatsApp quando chega review negativa é sensacional. Consigo resolver o problema rápido antes de virar uma bola de neve. Recomendo demais."</div>
+        <div class="dep-author">
+          <div class="dep-avatar" style="background:#E57373;">R</div>
+          <div><div class="dep-name">Ricardo Santos</div><div class="dep-biz">Hotel Praia Serena · Florianópolis</div></div>
+        </div>
+        <div class="dep-result">
+          <div class="dep-result-badge">4.2 → 4.6★</div>
+          <div class="dep-result-text">em 4 meses</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FAQ =================== -->
+<section class="faq" id="faq">
+  <div class="section-inner">
+    <div class="section-label" style="text-align:center;">Perguntas Frequentes</div>
+    <h2 class="section-title" style="text-align:center;">Tudo que você precisa saber</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">As respostas parecem robóticas?</button>
+        <div class="faq-a"><div class="faq-a-inner">Não. Nossa IA é treinada com o tom específico do seu negócio e cada resposta passa por revisão humana. Ninguém vai saber que não foi você quem escreveu. Usamos mais de 50 variações de abertura para nunca repetir.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Preciso dar acesso ao meu Google?</button>
+        <div class="faq-a"><div class="faq-a-inner">Sim, precisamos de acesso como gestor ao seu Google Meu Negócio para publicar as respostas. É o mesmo acesso que você daria a uma agência de marketing. Você pode revogar a qualquer momento.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">E se eu não gostar de uma resposta?</button>
+        <div class="faq-a"><div class="faq-a-inner">No plano Profissional e Premium, 100% das respostas passam por revisão humana antes de serem publicadas. Se em algum momento algo não estiver no tom certo, ajustamos na hora e refinamos o sistema para as próximas.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Não posso fazer isso com o ChatGPT?</button>
+        <div class="faq-a"><div class="faq-a-inner">Poder, pode. Mas vai precisar lembrar de checar as reviews todos os dias, copiar cada uma, gerar a resposta, revisar, publicar, e repetir isso para sempre. Nosso valor está no sistema completo: monitoramento 24/7, resposta automática, revisão, publicação e relatório. Tudo sem você fazer nada.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Tem fidelidade?</button>
+        <div class="faq-a"><div class="faq-a-inner">Pedimos 3 meses mínimos para que os resultados apareçam. Depois disso, pode cancelar com 30 dias de aviso. Mas honestamente? Ninguém cancela quando vê a nota subindo.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Quanto tempo leva para eu ver resultados?</button>
+        <div class="faq-a"><div class="faq-a-inner">A diferença no perfil é imediata — em 48h todas as suas reviews recentes estarão respondidas. A melhora de nota média costuma aparecer entre 60 e 90 dias, dependendo do volume de reviews do seu negócio.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== CTA FINAL =================== -->
+<section class="cta-final" id="cta">
+  <div class="cta-inner">
+    <h2>Teste grátis com<br><em>5 reviews respondidas</em></h2>
+    <p class="cta-sub">Manda o link do seu Google Meu Negócio pelo WhatsApp. A gente responde 5 reviews suas de graça — sem compromisso. Você decide depois.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/5500000000000?text=Oi!%20Quero%20testar%20a%20ReplyAI%20grátis" class="cta-whatsapp" target="_blank">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        Quero testar grátis pelo WhatsApp
+      </a>
+    </div>
+    <div class="cta-guarantee">
+      <span>🔒</span>
+      <span>5 reviews grátis · Sem compromisso · Resposta em até 24h</span>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Reply<span>AI</span></div>
+    <div class="footer-text">© 2026 ReplyAI · Gestão inteligente de avaliações Google</div>
+  </div>
+</footer>
+
+<script>
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('active'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('active');
+    }
+  });
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.stat-card, .step-card, .price-card, .dep-card, .ad-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(30px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
