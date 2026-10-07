@@ -143,3 +143,44 @@ Observação de honestidade: meus primeiros testes manuais de rede (antes do scr
 - **Covabra passa a ser o candidato mais promissor** para busca e para extensão (VTEX + sitemap público + produto acessível), mas as URLs de busca estão no `Disallow`. Navegar pelo sitemap e ler páginas de produto parece permitido pelo robots.txt; isso **não é parecer jurídico** e os termos não foram lidos.
 - **Ranking provisório revisado:** (1) Covabra, (2) Pague Menos, (3) Pão de Açúcar, (4) Carrefour (só via extensão, se for viável).
 - **Ainda NÃO VERIFICADO:** termos de uso de todos; se algum mercado entrega no CEP 13340-503; regionalização de preço por CEP; programa de afiliados.
+
+---
+
+## Verificação do Covabra e do sitemap do Pague Menos, 2026-10-07 (passos 1 e 2)
+
+Evidências em `docs/evidencias/covabra/` e `docs/evidencias/paguemenos/`. Todas as requisições com o UA identificável, 3 s de intervalo, poucas dezenas no total.
+
+### Covabra (VTEX)
+
+**(c) Termos de uso:** NÃO há página de "Termos de uso" no rodapé nem em `/politicas`. Encontrei: Manual de Conduta e Ética, Regulamento Bem-Estar, Política de Reembolso, Política de Frete e Entrega, e dois PDFs de LGPD (proteção e tratamento de dados; **PDFs não lidos**). Busca por termos como "robô", "automatizado", "scraping", "extração" na página `/politicas`: nenhum resultado. **Isso não significa que o acesso automatizado seja permitido**, só que não achei cláusula escrita. Parecer jurídico: pendente.
+
+**(a) Atende o CEP 13340-503?** Indício forte de que **sim**:
+- `GET /api/checkout/pub/regions?country=BRA&postalCode=13340503` → região `v2.BF9F7221…` com o seller **`covabra26`**.
+- CEP de controle (Av. Paulista, 01310-100) → região com **`sellers: []`** (não atendido).
+- Isso mostra cobertura de *região de venda*. **NÃO verificado:** se a entrega a domicílio nesse endereço está habilitada, taxa e pedido mínimo.
+
+**(b) Preço depende do CEP, sim:**
+- Sem `regionId`, o produto vem com `Price = 0` e `AvailableQuantity = 0` (indisponível).
+- Com `regionId = base64("SW#covabra26")`, o mesmo produto vem com preço real: Heineken 600ml = **R$ 11,99** (lista R$ 13,49).
+- Exemplos com região: Arroz Camil Tipo I 5kg R$ 17,49 (lista R$ 25,99); Arroz Oliron 5kg R$ 16,89 (lista R$ 19,99). Cada item traz EAN.
+- **Ressalvas:** `AvailableQuantity = 10000` parece valor placeholder, não estoque real. Nenhum campo de preço de clube/cartão foi identificado (só `PriceWithoutDiscount`); preço de clube: NÃO VERIFICADO. Não comparei dois CEPs *ambos atendidos* (só um atendido e um não atendido).
+
+**Endpoints que funcionaram** (todos públicos, sem login; o robots.txt do Covabra não lista `/api/` no Disallow):
+- `/api/checkout/pub/regions?country=BRA&postalCode=…`
+- `/api/io/_v/api/intelligent-search/product_search/?query=…&regionId=…&locale=pt-BR` (versão legada)
+- `/api/catalog_system/pub/products/search/<slug>/p` (sem região devolve preço 0)
+- O endpoint `/api/intelligent-search/v1/…` retornou 404 neste site.
+
+**Mas atenção:** são APIs internas da loja, não uma API oferecida a terceiros. Que o robots.txt não as proíba, e que eu não ache cláusula, **não os torna "legítimos"** sob a sua regra. É zona cinzenta e vai para o `riscos.md` e para a revisão jurídica. Os padrões `/busca/*` e `*?_q=` proibidos pelo Covabra NÃO foram usados.
+
+**Frete e pedido mínimo:** a home exibe "Valor mínimo de compra $30" e "Parcele em até 3x sem juros" (texto do cabeçalho). Taxa de entrega por CEP: NÃO VERIFICADA (simulação de frete exige carrinho/checkout, que o robots.txt proíbe e que não acessei).
+
+### Pague Menos (supermercado)
+- O sitemap do robots (`io.convertiez.com.br/s/superpaguemenos/sitemap.xml`) abre (200) e é um índice com 4 sitemaps: marcas, produtos, coleções e categorias, todos em `www.superpaguemenos.com.br/s/superpaguemenos/`. Atualizados hoje de manhã.
+- **Não abri** o sitemap de produtos nem uma página de produto. Preço por CEP no Pague Menos: NÃO VERIFICADO. Termos de uso: NÃO VERIFICADOS.
+
+### Ranking (provisório, atualizado)
+1. **Covabra**: CEP atendido (indício forte), preço regional por endpoint público, EAN presente. Risco: termos não resolvidos e uso de API interna.
+2. **Pague Menos**: sitemap público; faltam preço por CEP e termos.
+3. **Pão de Açúcar**: 403 ao UA identificável.
+4. **Carrefour**: desafio Cloudflare; só via extensão, se viável.
