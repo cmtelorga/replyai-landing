@@ -122,3 +122,24 @@ Legenda: ✅ confirmado por fonte citada · 🟡 fonte secundária / indício ·
 - **Preço unitário (R$/kg, R$/L):** estudo de campo clássico em supermercados mostrou que exibir o preço unitário numa lista organizada fez os consumidores migrarem para opções mais baratas por unidade (Russo, Krieser & Miyashita, 1975, *"An Effective Display of Unit Price Information"*, Journal of Marketing 39(2)). Sustenta a exibição de preço normalizado em toda comparação.
 - **Divisão de carrinho entre mercados:** é uma variante do *Traveling Purchaser Problem* / *shopping plan problem*, NP-difícil no caso geral (Ramesh, 1981; Laporte, Riera-Ledesma & Salazar-González, 2003). Com **4 a 6 mercados**, dá para enumerar todos os subconjuntos (2⁶−1 = 63) e resolver exatamente. O pedido mínimo por mercado exige um pequeno solver (ILP ou busca exaustiva com poda), não um guloso simples. Detalhes no plano.
 - **Trechos de fontes que não consegui abrir** (como o guia da VTEX, bloqueado) foram usados só pelo resumo da busca, e estão marcados assim.
+
+---
+
+## Verificação automatizada, 2026-10-07 (rede liberada)
+
+Script: `app/scripts/verificar-fontes.mjs` (só leitura, 1 req/3s por domínio, User-Agent identificável `ComparadorMercadoPrototipo/0.1`, respeita robots.txt, não contorna bloqueio). Evidências brutas em `docs/evidencias/<mercado>/` e `docs/evidencias/verificacao.json`.
+
+Observação de honestidade: meus primeiros testes manuais de rede (antes do script) usaram um User-Agent que começava com `Mozilla/5.0`. O script usa só o UA identificável. Os resultados abaixo são os do script.
+
+| Mercado | robots.txt | Home / sitemap | Plataforma | Observações |
+|---|---|---|---|---|
+| **Carrefour** (`mercado.`) | **403 com desafio Cloudflare** (`cf-mitigated: challenge`) | não acessados | Cloudflare (CDN/WAF) | Bloqueado a acesso de servidor. Não contornado. Fica fora da busca por servidor. Via extensão: NÃO VERIFICADO. |
+| **Pão de Açúcar** | 200. Proíbe `/checkout`, `/busca`, `/user/`, `/meu-desconto` etc. | **home e sitemap: 403** com o UA identificável | não identificada | O robots.txt abre, mas o site recusa o nosso UA. Não contornado. Termos: NÃO VERIFICADO. |
+| **Pague Menos** (super) | 200. Proíbe `/clientes/`, `/console/`, `/carrinho/`, `/checkout/`, `/api/` | home 200. `/sitemap.xml` dá 404. O sitemap do robots (`io.convertiez.com.br`) **não foi acessado** (host fora da allowlist do ambiente) | **Convertiez** (não é VTEX; achado por indício no HTML e cabeçalhos) | Busca de produtos não aparece proibida no robots. Termos: NÃO VERIFICADO (meu extrator de links deu falso positivo). |
+| **Covabra** | 200. Proíbe `/busca/*`, `*?_q=`, `*?page=`, `/checkout/*`, `/account/*` | home 200, sitemap 200 (índice com `product-0.xml`, 1000 URLs de amostra) | **VTEX (indício forte: marcadores no HTML)** | Página de produto acessível (`/…/p`), mas **sem JSON-LD de produto no HTML** servido. Termos em `/politicas` (**não lido ainda**). O preço no HTML pode ser o da loja padrão, não o do CEP. |
+
+### O que isso muda
+- **Correção da Fase 0:** o Pague Menos (supermercado) não é VTEX, ao contrário do que eu poderia supor pelo homônimo da farmácia. A hipótese anterior ("plataforma desconhecida") se confirma como "não VTEX".
+- **Covabra passa a ser o candidato mais promissor** para busca e para extensão (VTEX + sitemap público + produto acessível), mas as URLs de busca estão no `Disallow`. Navegar pelo sitemap e ler páginas de produto parece permitido pelo robots.txt; isso **não é parecer jurídico** e os termos não foram lidos.
+- **Ranking provisório revisado:** (1) Covabra, (2) Pague Menos, (3) Pão de Açúcar, (4) Carrefour (só via extensão, se for viável).
+- **Ainda NÃO VERIFICADO:** termos de uso de todos; se algum mercado entrega no CEP 13340-503; regionalização de preço por CEP; programa de afiliados.
