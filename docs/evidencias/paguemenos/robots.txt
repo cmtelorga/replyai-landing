@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /clientes/
+Disallow: /console/
+Disallow: /carrinho/
+Disallow: /checkout/
+Disallow: /api/
+
+Sitemap: https://io.convertiez.com.br/s/superpaguemenos/sitemap.xml

@@ -1,0 +1,148 @@
+{
+  "carrefour": {
+    "base": "https://mercado.carrefour.com.br",
+    "quando": "2026-10-07T12:30:11.845Z",
+    "notas": [
+      "robots.txt bloqueado/desafiado: não prosseguir com acesso de servidor."
+    ],
+    "robots": {
+      "status": 403,
+      "bloqueado": true,
+      "disallow": []
+    }
+  },
+  "paodeacucar": {
+    "base": "https://www.paodeacucar.com",
+    "quando": "2026-10-07T12:30:15.596Z",
+    "notas": [
+      "Nenhuma URL de produto encontrada no sitemap."
+    ],
+    "robots": {
+      "status": 200,
+      "bloqueado": false,
+      "disallow": [
+        "/checkout",
+        "/busca",
+        "/user/",
+        "/modal/",
+        "/meu-desconto",
+        "/meus-favoritos",
+        "/user-info/"
+      ]
+    },
+    "home": {
+      "status": 403,
+      "bloqueado": true,
+      "plataforma": [],
+      "jsonld": []
+    },
+    "termos_links": [],
+    "sitemap_na_home": [],
+    "sitemap": {
+      "url": "https://www.paodeacucar.com/sitemap.xml",
+      "status": 403,
+      "bloqueado": true,
+      "urls_amostra": 0
+    }
+  },
+  "paguemenos": {
+    "base": "https://www.superpaguemenos.com.br",
+    "quando": "2026-10-07T12:30:26.433Z",
+    "notas": [
+      "Nenhuma URL de produto encontrada no sitemap."
+    ],
+    "robots": {
+      "status": 200,
+      "bloqueado": false,
+      "disallow": [
+        "/clientes/",
+        "/console/",
+        "/carrinho/",
+        "/checkout/",
+        "/api/"
+      ]
+    },
+    "home": {
+      "status": 200,
+      "bloqueado": false,
+      "plataforma": [
+        "convertiez"
+      ],
+      "jsonld": []
+    },
+    "termos_links": [
+      "https://www.superpaguemenos.com.br/higiene-e-beleza/cabelos/condicionador/",
+      "https://www.superpaguemenos.com.br/mercearia/temperos-e-condimentos/",
+      "https://www.superpaguemenos.com.br/mercearia/temperos-e-condimentos/azeites/",
+      "https://www.superpaguemenos.com.br/mercearia/temperos-e-condimentos/vinagre/",
+      "https://www.superpaguemenos.com.br/mercearia/temperos-e-condimentos/sal/",
+      "https://www.superpaguemenos.com.br/mercearia/temperos-e-condimentos/pimenta/",
+      "https://www.superpaguemenos.com.br/mercearia/temperos-e-condimentos/caldos/",
+      "https://www.superpaguemenos.com.br/mercearia/temperos-e-condimentos/tempero-em-po/"
+    ],
+    "sitemap_na_home": [],
+    "sitemap": {
+      "url": "https://io.convertiez.com.br/s/superpaguemenos/sitemap.xml",
+      "status": 0,
+      "bloqueado": false,
+      "urls_amostra": 0
+    }
+  },
+  "covabra": {
+    "base": "https://www.covabra.com.br",
+    "quando": "2026-10-07T12:30:37.827Z",
+    "notas": [
+      "JSON-LD de produto sem CEP/região: o preço pode ser o da loja padrão, NÃO o do CEP do usuário."
+    ],
+    "robots": {
+      "status": 200,
+      "bloqueado": false,
+      "disallow": [
+        "/img/*",
+        "/account/*",
+        "/login/*",
+        "/checkout/*",
+        "/busca/*",
+        "/quick-view/*",
+        "/espiar/*",
+        "/buscapagina/*",
+        "/*?_q=",
+        "/*?page=",
+        "/*?gclid="
+      ]
+    },
+    "home": {
+      "status": 200,
+      "bloqueado": false,
+      "plataforma": [
+        "VTEX (indício)"
+      ],
+      "jsonld": [
+        "WebSite",
+        "ItemList"
+      ]
+    },
+    "termos_links": [
+      "https://www.covabra.com.br/politicas"
+    ],
+    "sitemap_na_home": [],
+    "sitemap": {
+      "url": "https://www.covabra.com.br/sitemap.xml",
+      "status": 200,
+      "bloqueado": false,
+      "subindice": "https://www.covabra.com.br/sitemap/product-0.xml",
+      "urls_amostra": 1000
+    },
+    "produto": {
+      "url": "https://www.covabra.com.br/cerveja-heineken-600ml/p",
+      "status": 200,
+      "bloqueado": false,
+      "jsonld_tipos": [],
+      "tem_offers": false,
+      "offers_amostra": null,
+      "plataforma": [
+        "VTEX (indício)"
+      ]
+    }
+  }
+}

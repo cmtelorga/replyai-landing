@@ -1,0 +1,16 @@
+# Disallow all crawlers access to certain pages. 
+ User-agent: * 
+
+ Disallow: /img/* 
+ Disallow: /account/* 
+ Disallow: /login/* 
+ Disallow: /checkout/* 
+ Disallow: /busca/* 
+ Disallow: /quick-view/* 
+ Disallow: /espiar/* 
+ Disallow: /buscapagina/*
+Disallow: /*?_q=
+Disallow: /*?page=
+Disallow: /*?gclid=
+
+Sitemap: https://www.covabra.com.br/sitemap.xml
