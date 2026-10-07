@@ -1,6 +1,6 @@
 # Plano por fases: Comparador de Compras de Supermercado
 
-**Status:** Fase 0 concluída com ressalvas. Aguardando aprovação.
+**Status:** Fase 0 concluída com ressalvas. Decisões 1–3 aprovadas em 2026-10-07 (app em `/app` neste repo; rede liberada; modelo de dados aprovado). Decisão 4 (chaves Anthropic/Supabase) pendente, só necessária após a verificação de fontes.
 **Data:** 2026-10-07
 
 ---
@@ -111,6 +111,18 @@ Adapters 2–4, agente de equivalência com fila de "revisar", normalizador, oti
 
 Núcleo comum (recebe `cart_plan` via página do app + `externally_connectable`, executa, reporta) + adapters isolados por mercado. Estratégia preferida: API de carrinho da plataforma **dentro da sessão do usuário** (ex.: `orderForm` VTEX), com **confirmação lendo o carrinho de volta**. DOM só como último recurso. Relatório item a item: `adicionado | falhou | substituto`. Nunca marca sucesso sem confirmar. **Se só 1 mercado for viável → paro e aviso.**
 
+### Fase 3a, experimento: extensão determinística vs. agente navegante
+
+Mesma lista de 10 itens, nos 2 mercados da extensão, nas duas abordagens:
+- **A (principal):** adapters determinísticos + leitura do carrinho de volta.
+- **B (plano B):** agente que navega o site numa aba por mercado, na sessão logada do usuário. Checkout e pagamento bloqueados por regra em código, não por instrução ao agente.
+
+Métricas por abordagem: itens corretos / itens com variante errada / falhas, tempo total, tokens e custo, e bloqueios anti-bot. Resultado entra em `relatorio.md` com os números medidos. **Pré-requisito:** um computador do usuário com Chrome e Claude in Chrome; a sessão cloud não controla o navegador dele. Se não houver computador disponível, o experimento fica registrado como "NÃO EXECUTADO".
+
+No produto, B só entra como fallback por item, marcado na UI como "feito pelo agente, confira".
+
+**Risco de plataforma:** pelo que sei, o Chrome para Android não roda extensões (NÃO VERIFICADO). Se confirmado, a extensão só atende usuários de computador; o fallback "lista por mercado com links diretos" é o caminho para celular.
+
 ### Fase 3b: Mercado Livre e Amazon
 
 Só se viáveis pela API oficial. Modelo de oferta por vendedor. Pode terminar em "inviável" documentado.
@@ -125,6 +137,7 @@ Documentos finais: `docs/riscos.md` (termos por site, LGPD, necessidade de revis
 
 ## 3. Riscos conhecidos desde já
 
+- **Achado de 2026-10-07:** o Carrefour responde 403 com desafio Cloudflare (`cf-mitigated: challenge`) a acesso de servidor; fica fora da busca por servidor. Os robots.txt de Pão de Açúcar (`/busca`), Pague Menos (`/api/`) e Covabra (`/busca/*`, `*?_q=`) proíbem as URLs de busca/API. Com robots.txt respeitado por padrão, a leitura de preços tende a depender da extensão.
 - **Bloqueio anti-bot no servidor** é o risco nº 1 para "≥ 2 mercados reais". A mitigação legítima é ler os preços pela extensão, na sessão do usuário, o que muda o fluxo: o usuário precisa ter a extensão instalada para obter os dados.
 - **Termos de uso** podem proibir acesso automatizado. Se proibirem, o adapter de scraping daquele mercado fica desligado, e eu digo isso.
 - **Preço de clube atrás de login** (Pão de Açúcar, possivelmente outros). Na pesquisa sem login, esse preço fica "não disponível sem login", não estimado.
