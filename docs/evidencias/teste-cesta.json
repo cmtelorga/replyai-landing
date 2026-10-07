@@ -1,0 +1,434 @@
+{
+  "quando": "2026-10-07T16:32:43.125Z",
+  "cep": "13340-503",
+  "rows": [
+    {
+      "item": "Arroz Camil tipo 1 5kg",
+      "covabra": {
+        "ncand": 5,
+        "nmatch": 3,
+        "escolhido": {
+          "name": "Arroz Camil Tipo I 5kg",
+          "price": 17.49,
+          "url": "https://www.covabra.com.br/arroz-camil-tipo-i-5kg/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 5,
+        "escolhido": {
+          "name": "Arroz Parbolizado Camil Tipo 1 5kg",
+          "price": 22.99,
+          "url": "https://www.superpaguemenos.com.br/arroz-camil-parbolizado-tipo-1-5kg/p",
+          "flags": [
+            "divergência: lista mostra R$ 22,99 e data-json 26.990000"
+          ]
+        }
+      }
+    },
+    {
+      "item": "Feijão carioca Camil 1kg",
+      "covabra": {
+        "ncand": 1,
+        "nmatch": 1,
+        "escolhido": {
+          "name": "Feijão Camil Carioca 1kg",
+          "price": 6.99,
+          "url": "https://www.covabra.com.br/feijao-camil-carioca-1kg/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 1,
+        "escolhido": {
+          "name": "Feijão Carioca Camil Tipo 1 1kg",
+          "price": 8.99,
+          "url": "https://www.superpaguemenos.com.br/feijao-camil-carioca-1kg/p",
+          "flags": []
+        }
+      }
+    },
+    {
+      "item": "Açúcar refinado União 1kg",
+      "covabra": {
+        "ncand": 4,
+        "nmatch": 4,
+        "escolhido": {
+          "name": "Açúcar União Refinado 1kg",
+          "price": 3.69,
+          "url": "https://www.covabra.com.br/acucar-uniao-refinado-1kg/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 0,
+        "escolhido": null
+      }
+    },
+    {
+      "item": "Óleo de soja Liza 900ml",
+      "covabra": {
+        "ncand": 2,
+        "nmatch": 0,
+        "escolhido": null
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 1,
+        "escolhido": {
+          "name": "Óleo de Soja Liza 900ml",
+          "price": 7.99,
+          "url": "https://www.superpaguemenos.com.br/oleo-de-soja-liza-900ml/p",
+          "flags": []
+        }
+      }
+    },
+    {
+      "item": "Café Pilão tradicional 500g",
+      "covabra": {
+        "ncand": 17,
+        "nmatch": 10,
+        "escolhido": {
+          "name": "Café Pilão Vácuo 500g",
+          "price": 22.99,
+          "url": "https://www.covabra.com.br/cafe-pilao-vacuo-500g/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 0,
+        "escolhido": null
+      }
+    },
+    {
+      "item": "Leite integral UHT Italac 1L",
+      "covabra": {
+        "ncand": 3,
+        "nmatch": 2,
+        "escolhido": {
+          "name": "Leite Italac Integral 1l",
+          "price": 5.99,
+          "url": "https://www.covabra.com.br/leite-italac-integral-1l/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 1,
+        "escolhido": {
+          "name": "Leite Integral Longa Vida Italac 1l",
+          "price": 5.29,
+          "url": "https://www.superpaguemenos.com.br/leite-longa-vida-integral-italac-1l/p",
+          "flags": [
+            "divergência: lista mostra R$ 5,29 e data-json 5.990000"
+          ]
+        }
+      }
+    },
+    {
+      "item": "Macarrão espaguete Renata 500g",
+      "covabra": {
+        "ncand": 4,
+        "nmatch": 4,
+        "escolhido": {
+          "name": "Macarrão Renata com Ovos Espaguete N.8 500g",
+          "price": 3.99,
+          "url": "https://www.covabra.com.br/macarrao-renata-com-ovos-espaguete-n-8-500g/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 3,
+        "escolhido": {
+          "name": "Macarrão Com Ovos Renata Espaguete N. 8 500g",
+          "price": 4.99,
+          "url": "https://www.superpaguemenos.com.br/macarrao-com-ovos-renata-spaguete-n8-500g/p",
+          "flags": [
+            "divergência: lista mostra R$ 4,99 e data-json 5.790000"
+          ]
+        }
+      }
+    },
+    {
+      "item": "Farinha de trigo Dona Benta 1kg",
+      "covabra": {
+        "ncand": 5,
+        "nmatch": 2,
+        "escolhido": {
+          "name": "Farinha de Trigo Dona Benta Especial Papel 1kg",
+          "price": 4.69,
+          "url": "https://www.covabra.com.br/farinha-de-trigo-dona-benta-especial-papel-1kg/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 2,
+        "escolhido": {
+          "name": "Farinha de Trigo Dona Benta Com Fermento Especial 1kg",
+          "price": 5.79,
+          "url": "https://www.superpaguemenos.com.br/farinha-de-trigo-dona-benta-com-fermento-especial-1kg/p",
+          "flags": []
+        }
+      }
+    },
+    {
+      "item": "Sal refinado Cisne 1kg",
+      "covabra": {
+        "ncand": 2,
+        "nmatch": 2,
+        "escolhido": {
+          "name": "Sal Cisne Refinado 1kg",
+          "price": 3.99,
+          "url": "https://www.covabra.com.br/sal-cisne-refinado-1kg/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 2,
+        "escolhido": {
+          "name": "Sal Refinado Cisne 1kg",
+          "price": 3.69,
+          "url": "https://www.superpaguemenos.com.br/sal-refinado-cisne-1kg/p",
+          "flags": []
+        }
+      }
+    },
+    {
+      "item": "Molho de tomate Pomarola 340g",
+      "covabra": {
+        "ncand": 1,
+        "nmatch": 0,
+        "escolhido": null
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 0,
+        "escolhido": null
+      }
+    },
+    {
+      "item": "Margarina Qualy 500g",
+      "covabra": {
+        "ncand": 9,
+        "nmatch": 7,
+        "escolhido": {
+          "name": "Margarina Qualy com Sal 500g",
+          "price": 7.99,
+          "url": "https://www.covabra.com.br/margarina-qualy-com-sal-500g/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 6,
+        "escolhido": {
+          "name": "Margarina Qualy Com Sal 500g",
+          "price": 10.29,
+          "url": "https://www.superpaguemenos.com.br/margarina-qualy-com-sal-500g/p",
+          "flags": []
+        }
+      }
+    },
+    {
+      "item": "Coca-Cola original 2L",
+      "covabra": {
+        "ncand": 14,
+        "nmatch": 4,
+        "escolhido": {
+          "name": "Refrigerante Coca-Cola Pet 2l",
+          "price": 10.99,
+          "url": "https://www.covabra.com.br/refrigerante-coca-cola-pet-2l/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 6,
+        "escolhido": {
+          "name": "Refrigerante Coca-Cola Original 2l",
+          "price": 12.49,
+          "url": "https://www.superpaguemenos.com.br/refrigerante-coca-cola-2l/p",
+          "flags": []
+        }
+      }
+    },
+    {
+      "item": "Detergente Ypê 500ml",
+      "covabra": {
+        "ncand": 15,
+        "nmatch": 6,
+        "escolhido": {
+          "name": "Detergente Ypê Clear 500ml Lava Louças Líquido Ypê Clear 500ml",
+          "price": 2.69,
+          "url": "https://www.covabra.com.br/lava-loucas-liquido-ype-clear-500ml/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 3,
+        "escolhido": {
+          "name": "Detergente Ypê Neutro 500ml",
+          "price": 2.09,
+          "url": "https://www.superpaguemenos.com.br/detergente-ype-neutro-500ml/p",
+          "flags": [
+            "divergência: lista mostra R$ 2,09 e data-json 3.090000"
+          ]
+        }
+      }
+    },
+    {
+      "item": "Sabão em pó Omo 1,6kg",
+      "covabra": {
+        "ncand": 8,
+        "nmatch": 1,
+        "escolhido": {
+          "name": "Sabão em Pó Omo Puro Cuidado 1.6kg",
+          "price": 26.89,
+          "url": "https://www.covabra.com.br/lava-roupas-omo-puro-cuidado-1-6kg/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 2,
+        "escolhido": {
+          "name": "Sabão Em Pó Omo Lavagem Perfeita 1,6kg",
+          "price": 29.99,
+          "url": "https://www.superpaguemenos.com.br/sabao-em-po-omo-lavagem-perfeita-16kg/p",
+          "flags": []
+        }
+      }
+    },
+    {
+      "item": "Papel higiênico Neve 12 rolos",
+      "covabra": {
+        "ncand": 2,
+        "nmatch": 1,
+        "escolhido": {
+          "name": "Papel Higiênico Neve 4 Folhas 12 Rolos 20m",
+          "price": 34.69,
+          "url": "https://www.covabra.com.br/papel-higienico-neve-4-folhas-12-rolos-20m/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 2,
+        "escolhido": {
+          "name": "Papel Higiênico Neve Toque das Ondas Folha Tripla 20m Com 12 Unidades",
+          "price": 33.99,
+          "url": "https://www.superpaguemenos.com.br/papel-higienico-neve-toque-das-ondas-folha-tripla-20m-com-12-unidades/p",
+          "flags": []
+        }
+      }
+    },
+    {
+      "item": "Creme dental Colgate 90g",
+      "covabra": {
+        "ncand": 24,
+        "nmatch": 21,
+        "escolhido": {
+          "name": "Creme Dental Colgate Máxima Proteção Anti Caries 90g",
+          "price": 5.89,
+          "url": "https://www.covabra.com.br/creme-dental-colgate-maxima-protecao-anti-caries-90g/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 24,
+        "escolhido": {
+          "name": "Creme Dental Colgate Máxima Proteção Anticáries 90g",
+          "price": 6.59,
+          "url": "https://www.superpaguemenos.com.br/creme-dental-colgate-maxima-protecao-anticaries-90g/p",
+          "flags": []
+        }
+      }
+    },
+    {
+      "item": "Sabonete Dove 90g",
+      "covabra": {
+        "ncand": 20,
+        "nmatch": 15,
+        "escolhido": {
+          "name": "Sabonete em Barra Dove Original 90 g",
+          "price": 5.79,
+          "url": "https://www.covabra.com.br/sabonete-dove-90g/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 15,
+        "escolhido": {
+          "name": "Sabonete Dove Original 90g",
+          "price": 4.89,
+          "url": "https://www.superpaguemenos.com.br/sabonete-dove-branco-90g/p",
+          "flags": [
+            "divergência: lista mostra R$ 4,89 e data-json 6.890000"
+          ]
+        }
+      }
+    },
+    {
+      "item": "Água sanitária Qboa 1L",
+      "covabra": {
+        "ncand": 24,
+        "nmatch": 0,
+        "escolhido": null
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 0,
+        "escolhido": null
+      }
+    },
+    {
+      "item": "Banana prata (kg)",
+      "covabra": {
+        "ncand": 5,
+        "nmatch": 1,
+        "escolhido": {
+          "name": "Banana Prata 1 Unidade 180g",
+          "price": 2.08,
+          "url": "https://www.covabra.com.br/banana-prata-1-unidade-180g/p",
+          "flags": []
+        }
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 1,
+        "escolhido": {
+          "name": "Banana Prata 500g",
+          "price": 1.99,
+          "url": "https://www.superpaguemenos.com.br/banana-prata-kg/p",
+          "flags": [
+            "divergência: lista mostra R$ 1,99 e data-json 4.995000"
+          ]
+        }
+      }
+    },
+    {
+      "item": "Biscoito Maizena Piraquê 200g",
+      "covabra": {
+        "ncand": 2,
+        "nmatch": 0,
+        "escolhido": null
+      },
+      "paguemenos": {
+        "ncand": 40,
+        "nmatch": 0,
+        "escolhido": null
+      }
+    }
+  ],
+  "logs": []
+}

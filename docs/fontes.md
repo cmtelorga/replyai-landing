@@ -184,3 +184,9 @@ Evidências em `docs/evidencias/covabra/` e `docs/evidencias/paguemenos/`. Todas
 2. **Pague Menos**: sitemap público; faltam preço por CEP e termos.
 3. **Pão de Açúcar**: 403 ao UA identificável.
 4. **Carrefour**: desafio Cloudflare; só via extensão, se viável.
+
+---
+
+## Pague Menos: teste de legibilidade (2026-10-07)
+
+Detalhes e números em `docs/teste-cesta.md`. Resumo: busca pública `/busca/<termo>` e página de produto legíveis sem tocar em rotas proibidas (microdados schema.org, sem JSON-LD, sem EAN). Preço por CEP, entrega e frete: **NÃO VERIFICADOS** (exigiriam rotas proibidas pelo robots.txt). Preço visível diverge do `data-json` da própria listagem em 6 de 14 itens comparados; causa desconhecida. Termos de uso: NÃO VERIFICADOS.
